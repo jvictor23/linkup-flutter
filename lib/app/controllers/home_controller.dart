@@ -1,4 +1,4 @@
-import 'package:linkup/app/Models/post.dart';
+import 'package:linkup/app/Models/usuario.dart';
 import 'package:linkup/app/repositories/home_repository.dart';
 
 class HomeController {
@@ -7,7 +7,7 @@ class HomeController {
     _repository = HomeRepository();
   }
 
-  Future<List<Post>> getPerfis() {
+  Future<List<Usuario>> getPerfis() {
     return _repository.getPerfis();
   }
 }

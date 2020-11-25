@@ -1,7 +1,6 @@
-import 'package:linkup/app/Models/investidor.dart';
-import 'package:linkup/app/Models/startup.dart';
+import 'package:linkup/app/Models/usuario.dart';
 
 abstract class ICadastrarRepository {
-  Future<bool> cadastrarInvestidor(Investidor investidor);
-  Future<bool> cadastrarStartup(StarTup starTup);
+  Future<bool> cadastrarInvestidor(Usuario usuario);
+  Future<bool> cadastrarStartup(Usuario usuario);
 }

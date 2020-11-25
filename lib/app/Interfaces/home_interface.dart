@@ -1,5 +1,5 @@
-import 'package:linkup/app/Models/post.dart';
+import 'package:linkup/app/Models/usuario.dart';
 
 abstract class IHomeRepository {
-  Future<List<Post>> getPerfis();
+  Future<List<Usuario>> getPerfis();
 }

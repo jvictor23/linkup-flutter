@@ -1,4 +1,4 @@
-class StarTup {
+class Usuario {
   String id;
   String imagem;
   String nome;
@@ -7,7 +7,7 @@ class StarTup {
   String senha;
   String tipo;
 
-  StarTup();
+  Usuario();
 
   Map<String, dynamic> toMap() {
     Map<String, dynamic> map = {

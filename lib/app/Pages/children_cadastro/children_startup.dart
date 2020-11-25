@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:linkup/app/Models/startup.dart';
+import 'package:linkup/app/Models/usuario.dart';
 import 'package:linkup/app/controllers/cadastrar_controller.dart';
 
 class ChildrenStartup extends StatefulWidget {
@@ -27,12 +27,12 @@ class _ChildrenStartupState extends State<ChildrenStartup> {
       if (_controllerTelefone.text.isNotEmpty) {
         if (_controllerEmail.text.isNotEmpty) {
           if (_controllerSenha.text.isNotEmpty) {
-            StarTup starTup = StarTup();
-            starTup.nome = _controllerNome.text;
-            starTup.telefone = _controllerTelefone.text;
-            starTup.email = _controllerEmail.text;
-            starTup.senha = _controllerSenha.text;
-            bool create = await _controller.cadastrarStarTup(starTup);
+            Usuario usuario = Usuario();
+            usuario.nome = _controllerNome.text;
+            usuario.telefone = _controllerTelefone.text;
+            usuario.email = _controllerEmail.text;
+            usuario.senha = _controllerSenha.text;
+            bool create = await _controller.cadastrarStarTup(usuario);
             if (create) {
               Navigator.pop(context);
             }

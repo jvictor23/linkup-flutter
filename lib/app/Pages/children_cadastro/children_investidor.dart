@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:linkup/app/Models/investidor.dart';
+import 'package:linkup/app/Models/usuario.dart';
 import 'package:linkup/app/controllers/cadastrar_controller.dart';
 
 class ChildrenInvestidor extends StatefulWidget {
@@ -27,12 +27,12 @@ class _ChildrenInvestidorState extends State<ChildrenInvestidor> {
       if (_controllerTelefone.text.isNotEmpty) {
         if (_controllerEmail.text.isNotEmpty) {
           if (_controllerSenha.text.isNotEmpty) {
-            Investidor investidor = Investidor();
-            investidor.nome = _controllerNome.text;
-            investidor.telefone = _controllerTelefone.text;
-            investidor.email = _controllerEmail.text;
-            investidor.senha = _controllerSenha.text;
-            bool create = await _controller.cadastrarInvestidor(investidor);
+            Usuario usuario = Usuario();
+            usuario.nome = _controllerNome.text;
+            usuario.telefone = _controllerTelefone.text;
+            usuario.email = _controllerEmail.text;
+            usuario.senha = _controllerSenha.text;
+            bool create = await _controller.cadastrarInvestidor(usuario);
             if (create) {
               Navigator.pop(context);
             }
