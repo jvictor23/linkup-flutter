@@ -5,6 +5,7 @@ class StarTup {
   String telefone;
   String email;
   String senha;
+  String tipo;
 
   StarTup();
 
@@ -14,7 +15,8 @@ class StarTup {
       "nome": this.nome,
       "telefone": this.telefone,
       "email": this.email,
-      "senha": this.senha
+      "senha": this.senha,
+      "tipo": this.tipo
     };
 
     return map;

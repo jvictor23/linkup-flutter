@@ -14,8 +14,9 @@ class CadastrarRepository implements ICadastrarRepository {
             email: investidor.email, password: investidor.senha)
         .then((value) async {
       investidor.id = value.user.uid;
+      investidor.tipo = "investidor";
       await firestore
-          .collection("Investidor")
+          .collection("Usuario")
           .doc(investidor.id)
           .set(investidor.toMap());
     });
@@ -29,8 +30,9 @@ class CadastrarRepository implements ICadastrarRepository {
             email: starTup.email, password: starTup.senha)
         .then((value) async {
       starTup.id = value.user.uid;
+      starTup.tipo = "startup";
       await firestore
-          .collection("Startup")
+          .collection("Usuario")
           .doc(starTup.id)
           .set(starTup.toMap());
     });

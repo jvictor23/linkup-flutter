@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:linkup/app/Pages/cadastro.dart';
 import 'package:linkup/app/Pages/home.dart';
+import 'package:linkup/app/controllers/login_controller.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -10,6 +12,47 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  LoginController _controller;
+  TextEditingController _controllerEmail = TextEditingController();
+  TextEditingController _controllerSenha = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = LoginController();
+  }
+
+  _login() async {
+    if (_controllerEmail.text.isNotEmpty) {
+      if (_controllerSenha.text.isNotEmpty) {
+        bool login = await _controller.login(
+            _controllerEmail.text, _controllerSenha.text);
+        if (login) {
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+      } else {
+        Fluttertoast.showToast(
+            msg: "O campo senha não pode ficar vazio!",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    } else {
+      Fluttertoast.showToast(
+          msg: "O campo email não pode ficar vazio!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +79,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: TextField(
+                      controller: _controllerEmail,
                       style: TextStyle(color: Theme.of(context).primaryColor),
                       cursorColor: Theme.of(context).primaryColor,
                       decoration: InputDecoration(
@@ -56,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 30),
                     child: TextField(
+                      controller: _controllerSenha,
                       style: TextStyle(color: Theme.of(context).primaryColor),
                       cursorColor: Theme.of(context).primaryColor,
                       obscureText: true,
@@ -79,12 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: RaisedButton(
                       color: Theme.of(context).accentColor,
                       textColor: Theme.of(context).primaryColor,
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomePage()));
-                      },
+                      onPressed: _login,
                       child: Text("Entrar"),
                     ),
                   ),
