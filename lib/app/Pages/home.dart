@@ -1,8 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:linkup/app/Pages/conversa.dart';
 import 'package:linkup/app/Pages/conversas.dart';
+import 'package:linkup/app/Pages/login.dart';
 import 'package:linkup/app/controllers/home_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeController _controller;
+  FirebaseAuth auth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
@@ -30,7 +34,22 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.push(context,
                     CupertinoPageRoute(builder: (context) => ConversasPage()));
-              })
+              }),
+          PopupMenuButton(
+              onSelected: (a) async {
+                SharedPreferences preferences =
+                    await SharedPreferences.getInstance();
+                preferences.clear();
+                auth.signOut();
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LoginPage()));
+              },
+              itemBuilder: (context) => [
+                    PopupMenuItem(
+                      child: Text("Sair"),
+                      value: "Sair",
+                    )
+                  ])
         ],
       ),
       body: FutureBuilder(

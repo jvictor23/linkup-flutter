@@ -15,7 +15,7 @@ class ConversaController {
     return _repository.enviaMenssagem(mensagem);
   }
 
-  Stream<QuerySnapshot> getMensagens(String idUsuarioDestinatario) {
+  StreamController<QuerySnapshot> getMensagens(String idUsuarioDestinatario) {
     return _repository.listaMensagem(idUsuarioDestinatario);
   }
 

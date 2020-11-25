@@ -6,7 +6,7 @@ import 'package:linkup/app/Models/mensagem.dart';
 
 abstract class IConversaRepository {
   Future<bool> enviaMenssagem(Mensagem mensagem);
-  Stream<QuerySnapshot> listaMensagem(String idUsuarioDestinatario);
+  StreamController<QuerySnapshot> listaMensagem(String idUsuarioDestinatario);
   Future<bool> salvarConversa(Conversa conversa);
   StreamController<QuerySnapshot> listaConversas();
 }

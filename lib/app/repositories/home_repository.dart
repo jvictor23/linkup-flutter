@@ -13,11 +13,15 @@ class HomeRepository implements IHomeRepository {
           .collection("Usuario")
           .where("tipo", isEqualTo: "startup")
           .get();
+      response.docs.forEach((element) {
+        print(element.data());
+      });
       List<Usuario> listUsuario = List();
       for (var p in response.docs) {
         Usuario usuario = Usuario();
         usuario.id = p.data()["id"];
         usuario.nome = p.data()["nome"];
+        usuario.tokenNotification = p.data()["tokenNotification"];
         listUsuario.add(usuario);
       }
       return listUsuario;
@@ -26,11 +30,13 @@ class HomeRepository implements IHomeRepository {
           .collection("Usuario")
           .where("tipo", isEqualTo: "investidor")
           .get();
+
       List<Usuario> listUsuario = List();
       for (var p in response.docs) {
         Usuario usuario = Usuario();
         usuario.id = p.data()["id"];
         usuario.nome = p.data()["nome"];
+        usuario.tokenNotification = p.data()["tokenNotification"];
         listUsuario.add(usuario);
       }
       return listUsuario;

@@ -60,7 +60,6 @@ class _ConversasPageState extends State<ConversasPage> {
                           title: Text(snapshot.data.docs[index].data()["nome"]),
                           subtitle: Text(
                               snapshot.data.docs[index].data()["mensagem"]),
-                          trailing: Text("16:35"),
                         ),
                       );
                     });

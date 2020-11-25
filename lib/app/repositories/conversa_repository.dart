@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -6,6 +7,7 @@ import 'package:linkup/app/Interfaces/conversa_interface.dart';
 import 'package:linkup/app/Models/conversa.dart';
 import 'package:linkup/app/Models/mensagem.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class ConversaRepository implements IConversaRepository {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -27,19 +29,44 @@ class ConversaRepository implements IConversaRepository {
         .collection(mensagem.idUsuario)
         .add(mensagem.toMap());
 
+    var response = await firestore
+        .collection("Usuario")
+        .doc(mensagem.idUsuarioDestinatario)
+        .get();
+
+    await http.post("https://fcm.googleapis.com/fcm/send",
+        body: jsonEncode({
+          "notification": {
+            "body": "${mensagem.mensagem}",
+            "title": "${preferences.getString("nome")}"
+          },
+          "priority": "high",
+          "to": "${response.data()["tokenNotification"]}"
+        }),
+        headers: {
+          "Authorization":
+              "key=AAAA2iffHxg:APA91bHrmRaVG6Gt75D-wF-YkRBCx2rWbrSQ8qplA-P8XgytKw55mZITVugwltwrkdSdFr66jEXMOdNlQwJDcjmmpjBVHqlV2CNm__rNFn9zrXfwE1wsE3Eje3m3YOtxy8x4HKAFfuSe",
+          "Content-Type": "application/json"
+        });
+
     return true;
   }
 
   @override
-  Stream<QuerySnapshot> listaMensagem(String idUsuarioDestinatario) {
+  StreamController<QuerySnapshot> listaMensagem(String idUsuarioDestinatario) {
     final controller = StreamController<QuerySnapshot>.broadcast();
     var response = firestore
         .collection("Mensagens")
         .doc(auth.currentUser.uid)
         .collection(idUsuarioDestinatario)
+        .orderBy("data")
         .snapshots();
 
-    return response;
+    response.listen((event) {
+      controller.add(event);
+    });
+
+    return controller;
   }
 
   @override

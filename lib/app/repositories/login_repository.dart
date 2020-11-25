@@ -9,9 +9,12 @@ class LoginRepository implements ILoginRepository {
   @override
   Future<bool> login(String email, String senha) async {
     final preferences = await SharedPreferences.getInstance();
-    //auth.signOut();
+    print(preferences.getKeys());
     var response =
         await auth.signInWithEmailAndPassword(email: email, password: senha);
+
+    await firestore.collection("Usuario").doc(response.user.uid).update(
+        {"tokenNotification": preferences.getString("tokenNotification")});
 
     var snap =
         await firestore.collection("Usuario").doc(response.user.uid).get();

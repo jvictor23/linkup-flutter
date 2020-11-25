@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:linkup/app/Models/conversa.dart';
 import 'package:linkup/app/Models/mensagem.dart';
 import 'package:linkup/app/Models/usuario.dart';
@@ -19,6 +22,7 @@ class _ConversaPageState extends State<ConversaPage> {
   ConversaController _controller;
   SharedPreferences preferences;
   FirebaseAuth auth = FirebaseAuth.instance;
+  ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -29,6 +33,9 @@ class _ConversaPageState extends State<ConversaPage> {
 
   _initialize() async {
     preferences = await SharedPreferences.getInstance();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+    });
   }
 
   _enviarMensagem() {
@@ -36,9 +43,13 @@ class _ConversaPageState extends State<ConversaPage> {
       Mensagem mensagem = Mensagem();
       mensagem.mensagem = _controllerMenssagem.text;
       mensagem.idUsuarioDestinatario = widget.usuario.id;
+      mensagem.tokenDestinatario = widget.usuario.tokenNotification;
       _controllerMenssagem.clear();
 
       _controller.enviaMenssagem(mensagem);
+      Timer(Duration(milliseconds: 500), () {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      });
 
       Conversa cRemetente = Conversa();
       cRemetente.idRemetente = auth.currentUser.uid;
@@ -51,7 +62,7 @@ class _ConversaPageState extends State<ConversaPage> {
       Conversa cDestinatario = Conversa();
       cDestinatario.idRemetente = widget.usuario.id;
       cDestinatario.idDestinatario = auth.currentUser.uid;
-      cDestinatario.nome = widget.usuario.nome;
+      cDestinatario.nome = preferences.getString("nome");
       cDestinatario.mensagem = mensagem.mensagem;
       cDestinatario.salvar();
       // _controller.salvarConversa(cDestinatario);
@@ -62,7 +73,7 @@ class _ConversaPageState extends State<ConversaPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Nome"),
+        title: Text(widget.usuario.nome),
         centerTitle: true,
         elevation: 0,
       ),
@@ -70,7 +81,7 @@ class _ConversaPageState extends State<ConversaPage> {
         child: Column(
           children: [
             StreamBuilder<QuerySnapshot>(
-                stream: _controller.getMensagens(widget.usuario.id),
+                stream: _controller.getMensagens(widget.usuario.id).stream,
                 builder: (context, snapshot) {
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
@@ -81,8 +92,13 @@ class _ConversaPageState extends State<ConversaPage> {
                     default:
                   }
                   QuerySnapshot querySnapshot = snapshot.data;
+                  SchedulerBinding.instance.addPostFrameCallback((_) {
+                    _scrollController
+                        .jumpTo(_scrollController.position.maxScrollExtent);
+                  });
                   return Expanded(
                       child: ListView.builder(
+                          controller: _scrollController,
                           itemCount: querySnapshot.docs.length,
                           itemBuilder: (context, index) {
                             return Align(
