@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:linkup/app/Pages/cadastro.dart';
 import 'package:linkup/app/Pages/home.dart';
 import 'package:linkup/app/controllers/login_controller.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -20,6 +21,15 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     _controller = LoginController();
+    _verificaLogin();
+  }
+
+  _verificaLogin() async {
+    final preferences = await SharedPreferences.getInstance();
+    if (preferences.containsKey("id")) {
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => HomePage()));
+    }
   }
 
   _login() async {
