@@ -22,6 +22,7 @@ class HomeRepository implements IHomeRepository {
         usuario.id = p.data()["id"];
         usuario.nome = p.data()["nome"];
         usuario.tokenNotification = p.data()["tokenNotification"];
+        usuario.tipo = "investidor";
         listUsuario.add(usuario);
       }
       return listUsuario;
@@ -37,6 +38,7 @@ class HomeRepository implements IHomeRepository {
         usuario.id = p.data()["id"];
         usuario.nome = p.data()["nome"];
         usuario.tokenNotification = p.data()["tokenNotification"];
+        usuario.tipo = "startup";
         listUsuario.add(usuario);
       }
       return listUsuario;

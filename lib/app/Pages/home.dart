@@ -82,11 +82,16 @@ class _HomePageState extends State<HomePage> {
                         child: Column(
                           children: [
                             Container(
-                              child: Image.network(
-                                "https://i.pinimg.com/originals/2c/2b/00/2c2b004b23c30d21d62a7f4216fead3e.jpg",
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
-                              ),
+                              child: snapshot.data[index].tipo == "investidor"
+                                  ? Image.network(
+                                      "https://images.vexels.com/media/users/3/128092/isolated/preview/b93c119029c78b0106e34486e9c70f26---cone-de-m--o-desenhada-de-ideia-by-vexels.png",
+                                      alignment: Alignment.topCenter,
+                                    )
+                                  : Image.network(
+                                      "https://abstartups.com.br/wp-content/uploads/2016/12/45437-saiba-qual-e-o-melhor-tipo-de-investidor-para-sua-startup.jpg",
+                                      fit: BoxFit.cover,
+                                      alignment: Alignment.center,
+                                    ),
                               width: double.infinity,
                               height: alturaTela * 0.22,
                             ),
@@ -107,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                                   top: 10, left: 8, right: 8, bottom: 10),
                               child: Container(
                                 child: Text(
-                                    "Huheuehue ehuehuhu eheuheueh ehueheuhe heuheuheue ehu eheuheuhu eh ueh euhe uheheuheuehueheu ehueheu"),
+                                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."),
                                 width: double.infinity,
                               ),
                             )
