@@ -90,7 +90,7 @@ class _HomePageState extends State<HomePage> {
                                   : Image.network(
                                       "https://abstartups.com.br/wp-content/uploads/2016/12/45437-saiba-qual-e-o-melhor-tipo-de-investidor-para-sua-startup.jpg",
                                       fit: BoxFit.cover,
-                                      alignment: Alignment.center,
+                                      alignment: Alignment.topCenter,
                                     ),
                               width: double.infinity,
                               height: alturaTela * 0.22,
