@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,12 +11,14 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   String token = await PushNotificationConfigure().configure();
-  print(token);
-  sharedPreferences.setString("tokenNotification", token);
   await Firebase.initializeApp();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));
+  Timer(Duration(seconds: 1), () {
+    print(token);
+    sharedPreferences.setString("tokenNotification", token);
+  });
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: LoginPage(),

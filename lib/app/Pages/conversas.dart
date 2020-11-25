@@ -55,6 +55,7 @@ class _ConversasPageState extends State<ConversasPage> {
                           },
                           leading: CircleAvatar(
                             backgroundColor: Theme.of(context).primaryColor,
+                            backgroundImage: NetworkImage(""),
                             radius: 26,
                           ),
                           title: Text(snapshot.data.docs[index].data()["nome"]),

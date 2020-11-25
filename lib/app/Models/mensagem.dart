@@ -4,7 +4,7 @@ class Mensagem {
   String idUsuario;
   String idUsuarioDestinatario;
   String mensagem;
-  int data = Timestamp.now().seconds;
+  String data = Timestamp.now().toString();
   String tokenDestinatario;
 
   Mensagem();

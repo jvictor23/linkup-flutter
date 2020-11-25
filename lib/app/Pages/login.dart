@@ -77,15 +77,10 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                       padding: const EdgeInsets.only(bottom: 70),
                       child: Center(
-                        child: Text(
-                          "LinkUP",
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 100,
-                              color: Theme.of(context).accentColor),
-                        ),
-                      )),
+                          child: Image.asset(
+                        "images/Banner.png",
+                        height: 300,
+                      ))),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 15),
                     child: TextField(
