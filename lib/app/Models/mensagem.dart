@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Mensagem {
   String idUsuario;
   String idUsuarioDestinatario;
   String mensagem;
-  String data = Timestamp.now().toString();
+  String data;
   String tokenDestinatario;
 
   Mensagem();

@@ -125,12 +125,25 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 60),
+                    padding: EdgeInsets.only(bottom: 30),
                     child: RaisedButton(
-                      color: Theme.of(context).accentColor,
-                      textColor: Theme.of(context).primaryColor,
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          side: BorderSide(color: Colors.white)),
+                      color: Theme.of(context).primaryColor,
+                      textColor: Theme.of(context).accentColor,
                       onPressed: _login,
                       child: Text("Entrar"),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 30),
+                    child: Center(
+                      child: Text("Esqueci minha senha",
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                          )),
                     ),
                   ),
                   Center(

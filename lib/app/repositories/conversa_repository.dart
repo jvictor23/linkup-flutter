@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:http/io_client.dart';
 import 'package:linkup/app/Interfaces/conversa_interface.dart';
 import 'package:linkup/app/Models/conversa.dart';
 import 'package:linkup/app/Models/mensagem.dart';
@@ -16,6 +18,23 @@ class ConversaRepository implements IConversaRepository {
   Future<bool> enviaMenssagem(Mensagem mensagem) async {
     final preferences = await SharedPreferences.getInstance();
     mensagem.idUsuario = preferences.getString("id");
+
+    HttpClient httpClient = HttpClient()
+      ..badCertificateCallback =
+          ((X509Certificate cert, String host, int port) => true);
+    IOClient ioClient = new IOClient(httpClient);
+
+    var res = await ioClient.get(
+        "https://showcase.api.linx.twenty57.net/UnixTime/tounixtimestamp?datetime=now",
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        });
+
+    print(jsonDecode(res.body));
+
+    if (res.statusCode == 200) {
+      mensagem.data = jsonDecode(res.body)["UnixTimeStamp"];
+    }
 
     await firestore
         .collection("Mensagens")

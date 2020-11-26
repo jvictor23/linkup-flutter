@@ -115,10 +115,28 @@ class _ConversaPageState extends State<ConversaPage> {
                                       color: Theme.of(context).accentColor,
                                       borderRadius:
                                           BorderRadius.all(Radius.circular(5))),
-                                  child: Text(
-                                    querySnapshot.docs[index]["mensagem"],
-                                    style: TextStyle(
-                                        color: Theme.of(context).primaryColor),
+                                  child: Column(
+                                    crossAxisAlignment: querySnapshot
+                                                .docs[index]["idUsuario"] ==
+                                            preferences.getString("id")
+                                        ? CrossAxisAlignment.end
+                                        : CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        querySnapshot.docs[index]
+                                                    ["idUsuario"] ==
+                                                preferences.getString("id")
+                                            ? "Eu"
+                                            : widget.usuario.nome,
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                      Text(
+                                        querySnapshot.docs[index]["mensagem"],
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                      )
+                                    ],
                                   ),
                                 ),
                               ),
@@ -126,12 +144,12 @@ class _ConversaPageState extends State<ConversaPage> {
                           }));
                 }),
             Container(
-              margin: EdgeInsets.only(left: 16, right: 16),
-              padding: EdgeInsets.only(left: 5),
               child: TextField(
                 controller: _controllerMenssagem,
                 decoration: InputDecoration(
                     fillColor: Theme.of(context).accentColor,
+                    hintText: "Digite uma mensagem",
+                    hintStyle: TextStyle(fontSize: 13),
                     filled: true,
                     suffixIcon: IconButton(
                         icon: Icon(Icons.send), onPressed: _enviarMensagem)),

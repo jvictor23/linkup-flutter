@@ -15,7 +15,10 @@ class _ConversasPageState extends State<ConversasPage> {
   void initState() {
     super.initState();
     _controller = ConversaController();
+    _iniciaSharedPreferences();
   }
+
+  _iniciaSharedPreferences() async {}
 
   @override
   Widget build(BuildContext context) {

@@ -174,9 +174,13 @@ class _ChildrenStartupState extends State<ChildrenStartup> {
                   ),
                 ),
                 RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  textColor: Theme.of(context).primaryColor,
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).accentColor,
                   onPressed: _cadastrar,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      side: BorderSide(color: Colors.white)),
                   child: Text("Cadastrar StarTup"),
                 )
               ],

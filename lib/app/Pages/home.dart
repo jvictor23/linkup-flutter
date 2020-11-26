@@ -76,45 +76,49 @@ class _HomePageState extends State<HomePage> {
                                   ConversaPage(snapshot.data[index])));
                     },
                     child: Card(
-                      margin: EdgeInsets.only(left: 0, right: 0, bottom: 10),
+                      margin: EdgeInsets.only(left: 0, right: 0, bottom: 2),
                       child: Container(
                         color: Theme.of(context).accentColor,
-                        child: Column(
+                        height: alturaTela * 0.2,
+                        child: Row(
                           children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 5),
+                              child: Container(
+                                padding: EdgeInsets.only(left: 10),
+                                child: snapshot.data[index].tipo == "investidor"
+                                    ? Image.network(
+                                        "https://images.vexels.com/media/users/3/128092/isolated/preview/b93c119029c78b0106e34486e9c70f26---cone-de-m--o-desenhada-de-ideia-by-vexels.png",
+                                        alignment: Alignment.topCenter,
+                                      )
+                                    : Image.network(
+                                        "https://abstartups.com.br/wp-content/uploads/2016/12/45437-saiba-qual-e-o-melhor-tipo-de-investidor-para-sua-startup.jpg",
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment.topCenter,
+                                      ),
+                                height: alturaTela * 0.14,
+                                width: larguraTela * 0.3,
+                              ),
+                            ),
                             Container(
-                              child: snapshot.data[index].tipo == "investidor"
-                                  ? Image.network(
-                                      "https://images.vexels.com/media/users/3/128092/isolated/preview/b93c119029c78b0106e34486e9c70f26---cone-de-m--o-desenhada-de-ideia-by-vexels.png",
-                                      alignment: Alignment.topCenter,
-                                    )
-                                  : Image.network(
-                                      "https://abstartups.com.br/wp-content/uploads/2016/12/45437-saiba-qual-e-o-melhor-tipo-de-investidor-para-sua-startup.jpg",
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.topCenter,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Text(
+                                      snapshot.data[index].nome,
+                                      style: TextStyle(fontSize: 14),
                                     ),
-                              width: double.infinity,
-                              height: alturaTela * 0.22,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 3, left: 8, right: 8),
-                              child: Container(
-                                alignment: Alignment.topLeft,
-                                child: Text(
-                                  snapshot.data[index].nome,
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(fontSize: 15),
-                                ),
+                                  ),
+                                  Text(
+                                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+                                    style: TextStyle(fontSize: 12),
+                                  )
+                                ],
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  top: 10, left: 8, right: 8, bottom: 10),
-                              child: Container(
-                                child: Text(
-                                    "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."),
-                                width: double.infinity,
-                              ),
+                              width: larguraTela * 0.65,
+                              height: alturaTela * 0.13,
                             )
                           ],
                         ),

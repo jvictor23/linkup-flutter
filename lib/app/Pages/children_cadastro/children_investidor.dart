@@ -174,8 +174,12 @@ class _ChildrenInvestidorState extends State<ChildrenInvestidor> {
                   ),
                 ),
                 RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  textColor: Theme.of(context).primaryColor,
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      side: BorderSide(color: Colors.white)),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).accentColor,
                   onPressed: _cadastrar,
                   child: Text("Cadastrar Investidor"),
                 )
